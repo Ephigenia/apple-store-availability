@@ -3,7 +3,6 @@
 
 var request = require('request');
 var Promise = require('promise');
-var chalk = require('chalk');
 
 var postalCode = 10245;
 var countryCode = 'de';
@@ -27,13 +26,13 @@ var parts = [
   }
 ];
 
-function getAvailability(countryCode, postalCode, part) {
+function getAvailability(countryCode, postalCode, partNumber) {
   var url = `http://www.apple.com/${countryCode}/shop/retail/pickup-message`;
   var options = {
     qs: {
       location: postalCode,
       little: 'true',
-      'parts.0': part.partNumber
+      'parts.0': partNumber
     }
   };
   return new Promise((resolve, reject) => {
@@ -62,13 +61,13 @@ parts.map(function(part) {
           let item = store.partsAvailability[key];
           switch(item.pickupDisplay) {
             default:
-              console.log(chalk.red(`\tnot available`));
+              console.log(`\tnot available`);
               break;
             case 'ships-to-store':
-              console.log(chalk.yellow(`\tshipping (${item.storePickupQuote})`));
+              console.log(`\tshipping (${item.storePickupQuote})`);
               break;
             case 'available':
-              console.log(chalk.green(`\tAVAILABLE FOR PICKUP (${item.storePickupQuote})`));
+              console.log(`\tAVAILABLE FOR PICKUP (${item.storePickupQuote})`);
               break;
           }
         });
