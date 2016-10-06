@@ -42,6 +42,7 @@ function getAvailability(countryCode, postalCode, part) {
     }
   };
   return new Promise((resolve, reject) => {
+    console.log(options);
     request(url, options, function(error, {body}) {
       if (error) {
         return reject(error);
